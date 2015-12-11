@@ -97,8 +97,8 @@ class TheGloriousBanquetCooker:
         return out_courses
 
     def getMichelinStarRatedDish(self):
-        dish = choice(self.feast_parts)
-        self.feast_parts.remove(dish)
+        dish = choice(self.courses)
+        self.courses.remove(dish)
 
         return dish + ' de Bacalhau'
 
