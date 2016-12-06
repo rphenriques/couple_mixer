@@ -1,4 +1,3 @@
-
 from random import choice, uniform
 import smtplib
 import requests
@@ -6,7 +5,6 @@ from email.mime.text import MIMEText
 
 
 class TheWonderCouple:
-
     def __init__(self, gifter_email, gifted_email, joke):
         self.gifter_email = gifter_email
         self.gifted_email = gifted_email
@@ -14,7 +12,6 @@ class TheWonderCouple:
 
 
 class TheAwesomeCoupleMixer:
-
     def __init__(self):
         self.wonder_couples = []
 
@@ -25,7 +22,7 @@ class TheAwesomeCoupleMixer:
         for email in emails:
             gifter = gifted = choice(gifters)
             gifters.remove(gifter)
-            while(gifter == gifted):
+            while (gifter == gifted):
                 gifted = choice(gifteds)
             gifteds.remove(gifted)
             joke = CoJoTheEntertainer.getHilariousParticipation()
@@ -38,7 +35,6 @@ class TheAwesomeCoupleMixer:
 
 
 class TheFabulousMailer:
-
     def __init__(self, smtp_server, smtp_port, from_email, from_email_pwd, subject, price):
         self.smtp_server = smtp_server
         self.smtp_port = smtp_port
@@ -78,7 +74,6 @@ class TheFabulousMailer:
 
 
 class TheIntrepidPriceFinder:
-
     def __init__(self, min_price, max_price):
         self.min_price = min_price
         self.max_price = max_price
@@ -89,7 +84,6 @@ class TheIntrepidPriceFinder:
 
 
 class CoJoTheEntertainer:
-
     @staticmethod
     def getHilariousParticipation():
         r = requests.get('http://api.icndb.com/jokes/random')
@@ -98,9 +92,6 @@ class CoJoTheEntertainer:
             return the_line['value']['joke']
         else:
             return "No joke for you"
-
-
-
 
 
 ##  price settings
