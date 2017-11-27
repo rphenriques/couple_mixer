@@ -41,8 +41,9 @@ class TheFabulousMailer:
         self.from_email = from_email
         self.from_email_pwd = from_email_pwd
         self.subject = subject
+        self.price = price
 
-    def performLegendarySending(self, wonder_couples):
+    def performLegendarySending(self, wonder_couples, min_price, max_price):
         server = smtplib.SMTP(self.smtp_server, self.smtp_port)
         server.ehlo()
         server.starttls()
@@ -56,13 +57,17 @@ class TheFabulousMailer:
                 Ides ofertar presentes ao casal {gifted_email}
                 um presente com valor igual ou inferior a: {price}
 
+                Mas podia ser qualquer um entre {min_price} e {max_price}
+
                 And I say to you: {joke}
 
                 'mai nada!
 
                 """.format(gifter_email=wonder_couple.gifter_email,
                            gifted_email=wonder_couple.gifted_email,
-                           price=price,
+                           price=self.price,
+                           min_price=min_price,
+                           max_price=max_price,
                            joke=wonder_couple.joke)
             message = MIMEText(msg_text)
             message['From'] = self.from_email
@@ -95,17 +100,17 @@ class CoJoTheEntertainer:
 
 
 ##  price settings
-min_price = 11
-max_price = 20
+min_price = 6.67
+max_price = 9.87
 
 ##  couples settings
-couples = []
+couples = [ ]
 
 ##  smtp server settings
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 
-from_email = ''
+from_email = ""
 from_email_pwd = ""
 subject = 'A roleta do jantar de Natal do sexta rodou e deciciu!!'
 
@@ -116,4 +121,4 @@ tipf = TheIntrepidPriceFinder(min_price, max_price)
 price = tipf.getThePriceForHappiness()
 
 tfm = TheFabulousMailer(smtp_server, smtp_port, from_email, from_email_pwd, subject, price)
-tfm.performLegendarySending(wonder_couples)
+tfm.performLegendarySending(wonder_couples, min_price, max_price)
