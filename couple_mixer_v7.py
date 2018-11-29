@@ -128,7 +128,7 @@ class CoJoTheCapitalist:
             rate = exchange_rates['rates'][currency]
             return {"currency": currency, "rate": rate}
         else:
-            return "No joke for you"
+            return {"currency": "EUR", "rate": 1}
 
 
 ##  price settings
