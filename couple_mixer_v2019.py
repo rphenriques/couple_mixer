@@ -24,8 +24,8 @@ class TheAwesomeCoupleMixer:
 
     def magicMixer(self, emails):
         num_couples = len(emails)
-        gifters = range(num_couples)
-        gifteds = range(num_couples)
+        gifters = list(range(num_couples))
+        gifteds = list(range(num_couples))
         for email in emails:
             gifter = gifted = choice(gifters)
             gifters.remove(gifter)
@@ -52,13 +52,14 @@ class TheFabulousMailer:
         self.inflation_rate = inflation_rate
 
     def performLegendarySending(self, wonder_couples):
+        # server = smtplib.SMTP_SSL(self.smtp_server, 465)#self.smtp_port)
         server = smtplib.SMTP(self.smtp_server, self.smtp_port)
         server.ehlo()
-        server.starttls()
+        #server.starttls()
         server.ehlo()
         server.login(self.from_email, self.from_email_pwd)
         for wonder_couple in wonder_couples:
-            print "Sending to ", wonder_couple.gifter_email
+            print("Sending to {gifter_email}".format(gifter_email=wonder_couple.gifter_email))
             to_email = wonder_couple.gifter_email
             msg_text = """
                 Sois o casal {gifter_email}
@@ -79,7 +80,7 @@ class TheFabulousMailer:
             message['Subject'] = self.subject
             server.sendmail(self.from_email, to_email, message.as_string())
         server.quit()
-        print "All done!"
+        print("All done!")
 
 
 class TheIntrepidPriceFinder:
@@ -126,7 +127,7 @@ class CoJoTheCapitalist:
         r = requests.get(uri)
         if r.status_code == 200:
             exchange_rates = r.json()
-            currency = choice(exchange_rates['rates'].keys())
+            currency = choice(list(exchange_rates['rates'].keys()))
             rate = exchange_rates['rates'][currency]
             return {"currency": currency, "rate": rate}
         else:
