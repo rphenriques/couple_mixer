@@ -55,7 +55,7 @@ class TheFabulousMailer:
         # server = smtplib.SMTP_SSL(self.smtp_server, 465)#self.smtp_port)
         server = smtplib.SMTP(self.smtp_server, self.smtp_port)
         server.ehlo()
-        #server.starttls()
+        server.starttls()
         server.ehlo()
         server.login(self.from_email, self.from_email_pwd)
         for wonder_couple in wonder_couples:
