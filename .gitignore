@@ -1,4 +1,6 @@
 .idea
 settings.py
+settings_dev.py
 .vscode
 __pycache__
+Pipfile.lock

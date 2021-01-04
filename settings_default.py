@@ -4,6 +4,9 @@ min_price = 7
 max_price = 10
 inflation_rate = 2.4
 
+start_page = 11
+end_page = 109
+
 ##  couples settings
 couples = []
 
