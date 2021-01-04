@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from datetime import date, timedelta
 import getpass
 from youtubesearchpython import Search as yt_search
-import settings_dev as s
+import settings as s
 
 
 class TheWonderCouple:
@@ -74,7 +74,7 @@ class TheFabulousMailer:
                 os outros têm de resolver todos os aspectos relativos
                 ao prato {dish_nr} do Chef Aleixo na cozinha.
 
-                O Grande Panda Flexitariano escolheu esta banda sonora para o vosso 2021:
+                O Grande {beast} Flexitariano escolheu esta banda sonora para o vosso 2021:
                 {chosen_song}
                 Mas esta também era linda:
                 {the_song}
@@ -89,6 +89,7 @@ class TheFabulousMailer:
                            joke=wonder_couple.joke,
                            poopers=self.poopers,
                            dish_nr=self.dish_nr,
+                           beast=TheWildernessExplorer.getMightyBeast(),
                            chosen_song=CoJoTheMusicologist.getPhenomenalSoundtrack(),
                            the_song=CoJoTheMusicologist.getOutstandingSong()
                            )
@@ -109,6 +110,16 @@ class TheIntrepidPriceFinder:
     def getThePriceForHappiness(self):
         price = round(uniform(self.min_price, self.max_price), 2)
         return str(price)
+
+
+class TheWildernessExplorer:
+    @staticmethod
+    def getMightyBeast():
+        r = requests.get('https://gist.githubusercontent.com/rphenriques/23f353967b4052d44eb229f99221345c/raw/6e46db8f5c27cb18fd1dfa50c7c921a0fbacbad0/animals.json')
+        if r.status_code == 200:
+            return choice(list(r.json()))
+        else:
+            return "CoupleMixer"
 
 
 class CoJoTheEntertainer:
