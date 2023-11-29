@@ -14,18 +14,19 @@ import settings_2023 as s
 
 
 class TheWonderCouple:
-    def __init__(self, gifter_email, gifted_email, joke, chuck_fact):
+    def __init__(self, gifter_email, gifted_email, joke, chuck_fact, price):
         self.gifter_email = gifter_email
         self.gifted_email = gifted_email
         self.joke = joke
         self.chuck_fact = chuck_fact
+        self.price = price
 
 
 class TheAwesomeCoupleMixer:
     def __init__(self):
         self.wonder_couples = []
 
-    def magicMixer(self, emails):
+    def magicMixer(self, emails, price):
         num_couples = len(emails)
         gifters = list(range(num_couples))
         gifteds = list(range(num_couples))
@@ -37,11 +38,11 @@ class TheAwesomeCoupleMixer:
             gifteds.remove(gifted)
             joke = CoJoTheEntertainer.getFatherTheDadJokeriny()
             chuck_fact = CoJoTheEntertainer.getChuckNorrisTruthOfLifeFact()
-            twc = TheWonderCouple(emails[gifter], emails[gifted], joke, chuck_fact)
+            twc = TheWonderCouple(emails[gifter], emails[gifted], joke, chuck_fact, price)
             self.wonder_couples.append(twc)
 
-    def getWonderCouples(self, emails):
-        self.magicMixer(emails)
+    def getWonderCouples(self, emails, price):
+        self.magicMixer(emails, price)
         return self.wonder_couples
 
 
@@ -68,8 +69,10 @@ class TheFabulousMailer:
                 Sois o casal {gifter_email}
                 Ides ofertar presentes ao casal {gifted_email}
 
-                O Grande {beast} Flexitariano escolheu esta banda sonora para vós:
+                O Grande {beast} Flexitariano aconselha este tema para o momento da escolha:
                 {chosen_song}
+
+                O valor é de {price}. Mais coisa ou menos.
 
                 And I say to you: {joke}
 
@@ -82,7 +85,8 @@ class TheFabulousMailer:
                            beast=TheWildernessExplorer.getMightyBeast(),
                            chosen_song=CoJoTheMusicologist.getPhenomenalSoundtrack(),
                            joke=wonder_couple.joke,
-                           chuck_fact=wonder_couple.chuck_fact
+                           chuck_fact=wonder_couple.chuck_fact,
+                           price=wonder_couple.price
                            )
             message = MIMEText(msg_text)
             message['From'] = self.from_email
@@ -91,16 +95,6 @@ class TheFabulousMailer:
             server.sendmail(self.from_email, to_email, message.as_string())
         server.quit()
         print("All done!")
-
-
-class TheIntrepidPriceFinder:
-    def __init__(self, min_price, max_price):
-        self.min_price = min_price
-        self.max_price = max_price
-
-    def getThePriceForHappiness(self):
-        price = round(uniform(self.min_price, self.max_price), 2)
-        return str(price)
 
 
 class TheWildernessExplorer:
@@ -145,22 +139,29 @@ class CoJoTheMusicologist:
             "https://www.youtube.com/watch?v=pXezLv_5RaY",
             "https://www.youtube.com/watch?v=NV0BgRFHGGA",
             "https://www.youtube.com/watch?v=mBw3qzf4s18",
-            "https://www.youtube.com/watch?v=uDrdZM1iGrc"]
+            "https://www.youtube.com/watch?v=uDrdZM1iGrc",
+            "https://www.youtube.com/watch?v=w3rQ3328Tok",
+            "https://www.youtube.com/watch?v=W85oD8FEF78",
+            "https://www.youtube.com/watch?v=BqYyE2JNMfg"]
 
         the_wonderfull_curated_list.append(CoJoTheMusicologist.getOutstandingSongs())
 
         return choice(the_wonderfull_curated_list)
 
-    @staticmethod
     def getOutstandingSongs():
         s_res = yt_search("rick astley never gonna give you up", limit=3)
         return [pos['link'] for pos in s_res.result()['result']]
 
+class TheIntrepidPriceFinder:
+    @staticmethod
+    def getThePriceForHappiness(min_price, max_price):
+        price = round(uniform(min_price, max_price), 2)
+        return str(price)
 
 if __name__ == '__main__':
     ## run the thing
     tacm = TheAwesomeCoupleMixer()
-    wonder_couples = tacm.getWonderCouples(emails=s.couples)
+    wonder_couples = tacm.getWonderCouples(emails=s.couples, price=TheIntrepidPriceFinder.getThePriceForHappiness(s.min_price, s.max_price))
     from_email_pwd = getpass.getpass()
 
     tfm = TheFabulousMailer(smtp_server=s.smtp_server, smtp_port=s.smtp_port,
