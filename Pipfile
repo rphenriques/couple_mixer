@@ -11,7 +11,7 @@ chardet = "==5.1.0"
 idna = "==3.4"
 requests = "==2.28.1"
 urllib3 = "==1.26.13"
-youtube-search-python = "*"
+youtube-search = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.12"

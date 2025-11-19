@@ -14,5 +14,8 @@ couples = []
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
 
+API_URL = "https://api.perplexity.ai/chat/completions"  # Use the correct endpoint!
+API_KEY = "YOUR_API_KEY"
+
 from_email = ""
 subject = 'A roleta do jantar de Natal do sexta rodou e deciciu!!'

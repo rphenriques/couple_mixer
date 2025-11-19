@@ -5,3 +5,4 @@ settings_*.py
 .vscode
 __pycache__
 Pipfile.lock
+test.py
